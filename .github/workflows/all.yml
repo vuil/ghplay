@@ -28,8 +28,8 @@ jobs:
       run: |
         NUM_FILES=$(find . -type f | wc -l)
         NUM_WORDS=$(cat $(find . -type f -name "*.md") | wc -w)
-        echo "num_files=$NUM_FILES" >> "$GITHUB_OUTPUT"
-        echo "num_words=$NUM_WORDS" >> "$GITHUB_OUTPUT"
+        echo "all testdev1 num_files=$NUM_FILES" >> "$GITHUB_OUTPUT"
+        echo "all testdev1 num_words=$NUM_WORDS" >> "$GITHUB_OUTPUT"
 
     - name: Output Workflow Variables and Script Results
       run: |
@@ -44,5 +44,5 @@ jobs:
         echo "- **GitHub Run Number:** ${{ github.run_number }}" >> "$GITHUB_STEP_SUMMARY"
         echo "- **Runner OS:** ${{ runner.os }}" >> "$GITHUB_STEP_SUMMARY"
         echo "### Script Results" >> "$GITHUB_STEP_SUMMARY"
-        echo "- **Total number of files:** ${{ steps.script_output.outputs.num_files }}" >> "$GITHUB_STEP_SUMMARY"
-        echo "- **Total number of words in .md files:** ${{ steps.script_output.outputs.num_words }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **all testdev1 Total number of files:** ${{ steps.script_output.outputs.num_files }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **all testdev1 Total number of words in .md files:** ${{ steps.script_output.outputs.num_words }}" >> "$GITHUB_STEP_SUMMARY"
