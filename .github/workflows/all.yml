@@ -7,6 +7,13 @@ on:
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:
+    inputs:
+      test-dev-arg:
+        description: 'some test dev branch specific arg'
+        required: false
+        type: string
+        default: 'testdev'
 
 jobs:
   build:
