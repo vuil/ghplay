@@ -1,0 +1,44 @@
+name: Branched Pipeline
+
+# expect this pipeline to be have branched versions, but still do not restrict
+# what they can run on
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Run script
+      id: script_output
+      run: |
+        NUM_FILES=$(find . -type f | wc -l)
+        NUM_WORDS=$(cat $(find . -type f -name "*.md") | wc -w)
+        echo "testdev1- RUNNING Branched pipeline branched.yml"
+        echo "testdev1- num_files=$NUM_FILES" >> "$GITHUB_OUTPUT"
+        echo "testdev1- num_words=$NUM_WORDS" >> "$GITHUB_OUTPUT"
+
+    - name: Output Workflow Variables and Script Results
+      run: |
+        echo "### GitHub Workflow Variables and State" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **GitHub Repository:** ${{ github.repository }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **GitHub Ref:** ${{ github.ref }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **GitHub Event Name:** ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **GitHub Head Ref:** ${{ github.head_ref }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **GitHub Base Ref:** ${{ github.base_ref }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **GitHub SHA:** ${{ github.sha }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **GitHub Run ID:** ${{ github.run_id }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **GitHub Run Number:** ${{ github.run_number }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **Runner OS:** ${{ runner.os }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "### Script Results" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **Total number of files:** ${{ steps.script_output.outputs.num_files }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- **Total number of words in .md files:** ${{ steps.script_output.outputs.num_words }}" >> "$GITHUB_STEP_SUMMARY"
