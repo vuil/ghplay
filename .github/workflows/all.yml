@@ -7,6 +7,13 @@ on:
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:
+    inputs:
+      lease-id:
+        description: 'Existing lease ID to use'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   build:
